@@ -20,6 +20,7 @@ const getBody = (req, callback) => {
   });
 };
 
+// Added a comment to check if nodemon restarts
 // here, you could declare one or more variables to store what comes back from the form.
 let color = "Enter favorite color.";
 //let item = "Enter something below.";
@@ -63,5 +64,8 @@ const server = http.createServer((req, res) => {
   }
 });
 
+server.on("request", (req) => {  
+  console.log("event received: ", req.method, req.url);  
+});  
 server.listen(3000);
 console.log("The server is listening on port 3000.");
