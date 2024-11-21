@@ -10,16 +10,16 @@ const app = express();
 
 //app.use statements for the middleware. You’ll eventually use many kinds of middleware, 
 //but for now the only middleware we are using is express.static().
-app.use(express.static("./public"))
+//app.use(express.static("./public"))
 
 //Add an app.get statement to app.js. It should be after the Express static middleware, but before the “not found” handler. 
 /*app.get('/api/v1/test',(req,res)=>{
     res.json({ message: "It worked!" });
 })*/
 
-app.get('/api/v1/products',(req,res)=>{
+/*app.get('/api/v1/products',(req,res)=>{
     res.json(products);
-})
+})*/
 
 /*So add an app.get statement for the url
 /api/v1/products. Write some code to return JSON for the products
@@ -95,6 +95,31 @@ array.*/
  (which would also be in the public directory.) When you click the button, your JavaScript would 
  issue a fetch call for /api/v1/products. Then you’d add the data you get back to a div in your HTML*/
 
+/*week 4 : The middleware function you create should log the method and url properties from the req object,
+ as well as the current time, before calling next()*/
+ const logger = (req, res, next) => {
+    const currentTime = new Date().toISOString(); // Get current time in ISO format
+    console.log(`[${currentTime}] ${req.method} request to ${req.url}`);
+    next(); // Pass control to the next middleware/route handler
+};
+
+app.use(logger);  // This will log requests for all routes
+
+// Use the logger middleware for specific routes
+/*app.get('/', logger, (req, res) => {
+    res.send('Hi There');
+});*/
+
+/*Then, take the logger call out of your app.get() statement, and call it via app.use(), 
+for all paths, instead. Verify that it still works.*/
+// Apply logger middleware to specific paths
+app.use(["/about", "/product"], logger); 
+app.get('/about', (req, res) => {
+    res.send('About page');
+});
+app.get('/product', (req, res) => {
+    res.send('product page');
+});
 
 //An app.all statement after these to handle page not found conditions.
 app.all('*',(req,res)=>{
