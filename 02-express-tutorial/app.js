@@ -13,9 +13,9 @@ const app = express();
 app.use(express.static("./public"))
 
 //Add an app.get statement to app.js. It should be after the Express static middleware, but before the “not found” handler. 
-/*app.get('/api/v1/test',(req,res)=>{
+app.get('/api/v1/test',(req,res)=>{
     res.json({ message: "It worked!" });
-})*/
+})
 
 app.get('/api/v1/products',(req,res)=>{
     res.json(products);
@@ -24,16 +24,20 @@ app.get('/api/v1/products',(req,res)=>{
 /*So add an app.get statement for the url
 /api/v1/products. Write some code to return JSON for the products
 array.*/
-/*app.get('/api/v1/products/:productID',(req,res)=>{
+app.get('/api/v1/products/:productID',(req,res)=>{
     
     //API should actually return, in JSON form, the product that has an ID of 7. 
     const idToFind = parseInt(req.params.productID); 
     const product = products.find((p) => p.id === idToFind);
+    if (!product) {
+        // If no product is found, return a 404 status with a message
+        return res.status(404).json({ message: `Product with ID ${idToFind} not found` });
+    }
     res.json(product);
-})*/
+})
 
 // Add a new app.get statement for /api/v1/query, and include logic to handle these query strings. Then test it out.
-/*app.get('/api/v1/query',(req,res)=>{
+app.get('/api/v1/query',(req,res)=>{
     
     //The user may also want to do a simple search, instead of getting all the products
     const searchItem = req.query.search
@@ -46,10 +50,10 @@ array.*/
     let limitedSearch = simpleSearch.slice(0,limit);
     res.json(limitedSearch);
 
-})*/
+})
 
 // the user might want to send a regular expression instead of search for starting letters
-/*app.get('/api/v1/query', (req,res)=>{
+app.get('/api/v1/query', (req,res)=>{
     console.log("inside new get")
     const searchItem = req.query.search || '';
     const limit = parseInt(req.query.limit) || 3 ;
@@ -88,7 +92,7 @@ array.*/
      }
      let limitedSearch = simpleSearch.slice(0,limit);
      res.json(limitedSearch);
-});*/
+});
 
 /*Add a button to your index.html. Add JavaScript,
  either within a <script> tag in index.html or in a JavaScript file it references 
