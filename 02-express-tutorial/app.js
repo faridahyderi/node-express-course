@@ -104,7 +104,7 @@ array.*/
 
 /*week 4 : The middleware function you create should log the method and url properties from the req object,
  as well as the current time, before calling next()*/
- /*const logger = (req, res, next) => {
+ const logger = (req, res, next) => {
     const currentTime = new Date().toISOString(); // Get current time in ISO format
     console.log(`[${currentTime}] ${req.method} request to ${req.url}`);
     next(); // Pass control to the next middleware/route handler
@@ -113,11 +113,11 @@ array.*/
 app.use(logger);  // This will log requests for all routes */
 
 // Use the logger middleware for specific routes
-/*app.get('/', logger, (req, res) => {
+app.get('/', logger, (req, res) => {
     res.send('Hi There');
-});*/
+});
 
-/*week 4:Then, take the logger call out of your app.get() statement, and call it via app.use(), 
+week 4:Then, take the logger call out of your app.get() statement, and call it via app.use(), 
 for all paths, instead. Verify that it still works.*/
 // Apply logger middleware to specific paths
 /*app.use(["/about", "/product"], logger); 
@@ -127,18 +127,18 @@ app.get('/about', (req, res) => {
 
 app.get('/product', (req, res) => {
     res.send('product page');
-});*/
+});
 
 //week 4:Now you implement the app.post statement for /api/v1/people
 // Middleware to parse incoming request bodies
-/*app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());  // Parse JSON bodies*/
 
 //for imlementing router and controller
-//app.use("/api/v1/people", peopleRouter);
+app.use("/api/v1/people", peopleRouter);
 
 // GET endpoint to return people data
-/*app.get('/api/v1/people', (req, res) => {
+app.get('/api/v1/people', (req, res) => {
     res.json(people); // Send the people array as a JSON response
   });
 
@@ -157,7 +157,7 @@ app.post('/api/v1/people', (req, res) => {
 
   // Return a success response with the new person's name
   res.status(201).json({ success: true, name: req.body.name });
-});*/
+});
 
 
 //Week 4 optional authentication 
