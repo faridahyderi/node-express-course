@@ -117,10 +117,10 @@ app.get('/', logger, (req, res) => {
     res.send('Hi There');
 });
 
-week 4:Then, take the logger call out of your app.get() statement, and call it via app.use(), 
+/*week 4:Then, take the logger call out of your app.get() statement, and call it via app.use(), 
 for all paths, instead. Verify that it still works.*/
 // Apply logger middleware to specific paths
-/*app.use(["/about", "/product"], logger); 
+app.use(["/about", "/product"], logger); 
 app.get('/about', (req, res) => {
     res.send('About page');
 });
@@ -132,7 +132,7 @@ app.get('/product', (req, res) => {
 //week 4:Now you implement the app.post statement for /api/v1/people
 // Middleware to parse incoming request bodies
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());  // Parse JSON bodies*/
+app.use(express.json());  // Parse JSON bodies
 
 //for imlementing router and controller
 app.use("/api/v1/people", peopleRouter);
